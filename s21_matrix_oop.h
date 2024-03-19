@@ -1,3 +1,5 @@
+#ifndef CPP1_S21_MATRIXPLUS_SRC_S21_MATRIX_OOP_H
+#define CPP1_S21_MATRIXPLUS_SRC_S21_MATRIX_OOP_H
 #include <cmath>
 #include <iostream>
 
@@ -19,8 +21,8 @@ class S21Matrix {
   double Determinant();
   S21Matrix CalcComplements();
   S21Matrix InverseMatrix();
-  double recurs_determ(const S21Matrix &inp_matr);
-  S21Matrix create_minor(int i, int j, int row, int col) const;
+  double RecursDeterm(const S21Matrix &inp_matr);
+  S21Matrix CreateMinor(int i, int j, int row, int col) const;
 
   int GetCols();
   int GetRows();
@@ -44,10 +46,11 @@ class S21Matrix {
  private:
   int rows_, cols_;
   double **matrix_;
-  void create_matrix(int rows, int cols);
-  void del_matrix();
-  void reset_matrix();
-  bool is_correct_matrix(int rows, int cols);
-  bool is_eq_size(const S21Matrix &other) const;
-  void copy_matrix(const S21Matrix &other);
+  void CreateMatrix(int rows, int cols);
+  void DelMatrix();
+  void ResetMatrix();
+  bool IsCorrectMatrix(int rows, int cols);
+  bool isEqSize(const S21Matrix &other) const;
+  void CopyMatrix(const S21Matrix &other);
 };
+#endif  // CPP1_S21_MATRIXPLUS_SRC_S21_MATRIX_OOP_H

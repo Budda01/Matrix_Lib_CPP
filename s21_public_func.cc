@@ -2,7 +2,7 @@
 
 bool S21Matrix::EqMatrix(const S21Matrix& other) const {
   bool res = true;
-  if (is_eq_size(other)) {
+  if (isEqSize(other)) {
     int check = 0;
     for (int i = 0; i < rows_; i++) {
       for (int j = 0; j < cols_; j++) {
@@ -16,7 +16,7 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) const {
   return res;
 }
 void S21Matrix::SumMatrix(const S21Matrix& other) {
-  if (!is_eq_size(other)) {
+  if (!isEqSize(other)) {
     throw std::invalid_argument("Различная размерность матриц");
   }
   for (int i = 0; i < rows_; i++) {
@@ -26,7 +26,7 @@ void S21Matrix::SumMatrix(const S21Matrix& other) {
   }
 }
 void S21Matrix::SubMatrix(const S21Matrix& other) {
-  if (!is_eq_size(other)) {
+  if (!isEqSize(other)) {
     throw std::invalid_argument("Различная размерность матриц");
   }
   for (int i = 0; i < rows_; i++) {
@@ -77,10 +77,10 @@ double S21Matrix::Determinant() {
   if (rows_ == 1)
     determ = matrix_[0][0];
   else
-    determ = this->recurs_determ(*this);
+    determ = this->RecursDeterm(*this);
   return determ;
 }
-double S21Matrix::recurs_determ(const S21Matrix& inp_matr) {
+double S21Matrix::RecursDeterm(const S21Matrix& inp_matr) {
   double determ = 0;
   if (inp_matr.rows_ == 2) {
     determ = (inp_matr.matrix_[0][0] * inp_matr.matrix_[1][1]) -
@@ -88,8 +88,8 @@ double S21Matrix::recurs_determ(const S21Matrix& inp_matr) {
   } else {
     for (int j = 0; j < inp_matr.cols_; j++) {
       S21Matrix minor =
-          inp_matr.create_minor(0, j, inp_matr.rows_, inp_matr.cols_);
-      double sub_determ = recurs_determ(minor);
+          inp_matr.CreateMinor(0, j, inp_matr.rows_, inp_matr.cols_);
+      double sub_determ = RecursDeterm(minor);
       determ += pow(-1, j) * inp_matr.matrix_[0][j] * sub_determ;
     }
   }
@@ -105,7 +105,7 @@ S21Matrix S21Matrix::CalcComplements() {
   else {
     for (int i = 0; i < rows_; i++) {
       for (int j = 0; j < cols_; j++) {
-        S21Matrix minor = create_minor(i, j, rows_, cols_);
+        S21Matrix minor = CreateMinor(i, j, rows_, cols_);
         double determ = minor.Determinant();
         res.matrix_[i][j] = (pow(-1, i + j) * determ);
       }
@@ -132,7 +132,7 @@ S21Matrix S21Matrix::InverseMatrix() {
   }
   return res;
 }
-S21Matrix S21Matrix::create_minor(int i, int j, int row, int col) const {
+S21Matrix S21Matrix::CreateMinor(int i, int j, int row, int col) const {
   S21Matrix minor(row - 1, col - 1);
   for (int r = 0; r < i; r++) {
     for (int c = 0; c < j; c++) {

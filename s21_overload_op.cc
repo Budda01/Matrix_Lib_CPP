@@ -1,19 +1,19 @@
 #include "s21_matrix_oop.h"
 
 //конструкторы и деструкторы
-S21Matrix::S21Matrix() : rows_(2), cols_(2) { create_matrix(rows_, cols_); }
+S21Matrix::S21Matrix() : rows_(2), cols_(2) { CreateMatrix(rows_, cols_); }
 S21Matrix::S21Matrix(int rows, int cols) : rows_(rows), cols_(cols) {
-  create_matrix(rows_, cols_);
+  CreateMatrix(rows_, cols_);
 }
 S21Matrix::S21Matrix(const S21Matrix &other) {
-  create_matrix(other.rows_, other.cols_);
-  copy_matrix(other);
+  CreateMatrix(other.rows_, other.cols_);
+  CopyMatrix(other);
 }
 S21Matrix::S21Matrix(S21Matrix &&other)
     : rows_(other.rows_), cols_(other.cols_), matrix_(other.matrix_) {
-  other.reset_matrix();
+  other.ResetMatrix();
 }
-S21Matrix::~S21Matrix() { del_matrix(); }
+S21Matrix::~S21Matrix() { DelMatrix(); }
 // аксессоры и мутаторы
 int S21Matrix::GetCols() { return cols_; }
 int S21Matrix::GetRows() { return rows_; }
@@ -89,9 +89,9 @@ S21Matrix S21Matrix::operator-(const S21Matrix &other) const {
 }
 void S21Matrix::operator-=(const S21Matrix &other) { SubMatrix(other); }
 S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
-  del_matrix();
-  create_matrix(other.rows_, other.cols_);
-  copy_matrix(other);
+  DelMatrix();
+  CreateMatrix(other.rows_, other.cols_);
+  CopyMatrix(other);
   return *this;
 }
 bool S21Matrix::operator==(const S21Matrix &other) const {
@@ -104,7 +104,7 @@ S21Matrix S21Matrix::operator*(const S21Matrix &other) const {
 }
 S21Matrix operator*(const double num, const S21Matrix &matrix) {
   S21Matrix res(matrix.rows_, matrix.cols_);
-  res.copy_matrix(matrix);
+  res.CopyMatrix(matrix);
   res.MulNumber(num);
   return res;
 }

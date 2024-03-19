@@ -1,9 +1,8 @@
-FLAGS  = g++ -std=c++17 -Wall -Wextra -Werror
+FLAGS  = gcc -std=c++17 -Wall -Wextra -Werror
 LIBS = -lgtest -pthread -lstdc++ -lm
 GCOV = --coverage
 
-all:
-
+all: s21_matrix_oop.a tests
 s21_matrix_oop.a:
 	@$(FLAGS) -c s21_overload_op.cc  -o s21_overload_op.o
 	@$(FLAGS) -c s21_private_func.cc -o s21_private_func.o
